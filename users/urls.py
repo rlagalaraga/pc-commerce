@@ -13,6 +13,6 @@ urlpatterns = [
     
     path('api/logout/', api.LoggedUserViewSet.as_view({'post':'user_logout'})),
     path('api/change_pass/', api.LoggedUserViewSet.as_view({'post':'change_pass'})),
-    # path('api/get_UserObject/<int:user_id>/', api.LoggedUserViewSet.as_view({'get':'get_UserObject'})),
+    path('api/get_UserObject/<int:user_id>/', api.LoggedUserViewSet.as_view({'get':'get_UserObject'})),
     path('api/update_user/<int:user_id>/', api.LoggedUserViewSet.as_view({'post':'update_profile'})),
 ]
