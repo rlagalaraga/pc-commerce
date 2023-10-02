@@ -1,0 +1,14 @@
+services:
+  backend:
+    build:
+      context: backend
+      args:
+        - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}
+    ports:
+      - 8000:8000
+  frontend:
+    build: frontend
+    depends_on:
+      - backend
+    ports:
+      - 3000:3000
