@@ -2,7 +2,7 @@ import React from 'react'
 
 export const HeadlineCards = () => {
   return (
-    <div className='w-full ms-auto p-4 py-12 grid grid-cols-2 md:grid-cols-7 gap-3'>
+    <div className='w-full ms-auto p-4 py-12 grid grid-cols-2 lg:grid-cols-7 gap-3'>
         {/* card */}
         <div className='font-bebas text-white text-xl cardHeadline'>
             {/* overlay */}
@@ -25,7 +25,7 @@ export const HeadlineCards = () => {
         <div className='font-bebas text-white text-xl cardHeadline'>
             {/* overlay */}
             <div>
-                <img className='w-full h-[250px] object-cover' src="https://assets.vg247.com/current//2020/09/nvidia_geforce_rtx_3080_06.jpg" />
+                <img className='w-full h-[250px] object-cover' src="https://beebom.com/wp-content/uploads/2017/05/how-to-overclock-gpu-e1683616877455.jpg?w=750&quality=75" />
                 <h1 className='text-center bg-black'>GPU</h1>
             </div>
         </div>
