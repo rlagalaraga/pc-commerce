@@ -30,3 +30,7 @@ body{
     border: solid 1px #37ebf3;
     cursor: pointer;
 }
+
+.cardHeadline{
+    border: solid 1px #710000;
+}

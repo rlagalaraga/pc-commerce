@@ -10,9 +10,9 @@ function Navbar() {
   return (
     <>
        <div className='flex justify-between items-center h-24 mx-auto px-4 text-white bg-black'>
-            <h1 className='text-3xl font-bold text-[#FDF500] font-cyberpunk'>
+            <a href="/" className="text-3xl pt-6 h-full font-bold text-[#FDF500] font-cyberpunk bg-[url('https://media2.giphy.com/media/4knozU8q9AXvpod9qy/giphy.gif')]">
                 DBPC
-            </h1>
+            </a>
             <ul className='font-bebas text-xl hidden md:flex'>
                 <li className='p-4'>Gaming Gear</li>
                 <li className='p-4'>PC components</li>
@@ -25,7 +25,7 @@ function Navbar() {
               <AiOutlineMenu size={30}/>
             </div>
 
-            <div className={!nav ? "fixed left-0 top-0 w-[60%] h-full border-r border-r-[#710000] bg-black ease-in-out duration-500 md:left-[-100%] z-10" : "fixed left-[-100%]"}>
+            <div className={nav ? "fixed left-0 top-0 w-[60%] h-full border-r border-r-[#710000] bg-black ease-in-out duration-500 md:left-[-100%] z-20" : "fixed left-[-100%]"}>
               <div className="flex">
                 <h1 className='w-full text-3xl font-bold text-[#FDF500] font-cyberpunk m-4'>
                     DBPC
