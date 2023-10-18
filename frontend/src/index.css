@@ -27,10 +27,10 @@ body{
 }
 
 .cardHeadline:hover{
-    border: solid 1px #37ebf3;
+    border: solid 2px #37ebf3;
     cursor: pointer;
 }
 
 .cardHeadline{
-    border: solid 1px #710000;
+    border: solid 2px #272932;
 }
