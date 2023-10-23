@@ -9,17 +9,16 @@ function Navbar() {
   }
   return (
     <>
-       <div className='flex justify-between items-center h-24 mx-auto px-4 text-white bg-black'>
-            <a href="/" className="text-3xl pt-6 h-full font-bold text-[#FDF500] font-cyberpunk bg-[url('https://media2.giphy.com/media/4knozU8q9AXvpod9qy/giphy.gif')]">
+       <div className='flex justify-between items-center h-20 mx-auto px-4 text-white bg-black'>
+            <a href="/" className="text-3xl bg-gradient-to-t pt-4 h-full font-bold text-[#FDF500] font-cyberpunk">
                 DBPC
             </a>
             <ul className='font-bebas text-xl hidden md:flex'>
-                <li className='p-4'>Gaming Gear</li>
-                <li className='p-4'>PC components</li>
-                <li className='p-4'>Gaming PCs</li>
-                <li className='p-4'>Contact</li>
-                <li className='p-4'>Log in | Sign up</li>
-                <li><button className="p-4"><BsFillCartFill/></button></li>
+                <a href="" className="border-b-[3px] border-black hover:border-b-[3px] hover:border-[#FDF500]"><li className="p-4">Transactions</li></a>
+                <a href="" className="border-b-[3px] border-black hover:border-b-[3px] hover:border-[#FDF500]"><li className="p-4">Products</li></a>
+                <a href="/profile/Sample McSampleson" className="border-b-[3px] border-black hover:border-b-[3px] hover:border-[#FDF500]"><li className="p-4">Profile</li></a>
+                <a href="" className="border-b-[3px] border-black hover:border-b-[3px] hover:border-[#FDF500]"><li className="p-4">Cart</li></a>
+                <a href="" className="border-b-[3px] border-black hover:border-b-[3px] hover:border-[#FDF500]"><li className="p-4">Log in | Sign up</li></a>
             </ul>
             <div onClick={handleNav} className="block md:hidden">
               <AiOutlineMenu size={30}/>
@@ -35,12 +34,11 @@ function Navbar() {
                 </div>
               </div>
               <ul className='font-bebas text-xl p-4'>
-                <li className='p-4'>Gaming Gear</li>
-                <li className='p-4'>PC components</li>
-                <li className='p-4'>Gaming PCs</li>
-                <li className='p-4'>Contact</li>
-                <li className='p-4'>Log in | Sign up</li>
-                <li><button className="p-4 w-full"><BsFillCartFill/></button></li>
+                <a href=""><li className="p-4 hover:bg-[#FDF500] hover:text-black">Transactions</li></a>
+                <a href=""><li className="p-4 hover:bg-[#FDF500] hover:text-black">Products</li></a>
+                <a href=""><li className="p-4 hover:bg-[#FDF500] hover:text-black">Profile</li></a>
+                <a href=""><li className="p-5 hover:bg-[#FDF500] hover:text-black"><BsFillCartFill/></li></a>
+                <a href=""><li className="p-4 hover:bg-[#FDF500] hover:text-black">Log in | Sign up</li></a>
               </ul>
             </div>
        </div>

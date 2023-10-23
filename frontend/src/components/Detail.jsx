@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { BsFillCartFill } from 'react-icons/bs'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { RiArrowLeftDoubleLine, RiArrowRightDoubleLine } from 'react-icons/ri'
 
 export const Detail = () => {
@@ -24,6 +24,7 @@ export const Detail = () => {
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
   };
+  
   return (
     <div>
       <div className='bg-black text-white w-full sm:w-[90%] m-auto'>
