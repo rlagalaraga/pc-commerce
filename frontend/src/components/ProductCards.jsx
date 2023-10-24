@@ -37,7 +37,7 @@ export const ProductCards = () => {
                 </div>
                 <div className='w-full ms-auto py-4 px-4 lg:pr-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3'>
                     {/* card */}
-                    <div className='font-mont font-bold h-[520px] bg-black text-white'>
+                    <div className='font-mont font-bold h-[520px] bg-black text-white border-zinc-600 border-[1px]'>
                         {/* overlay */}
                         <div>
                             <img className='w-full h-[300px] object-cover' src="https://cdn.originpc.com/img/gaming-desktops.jpg" />

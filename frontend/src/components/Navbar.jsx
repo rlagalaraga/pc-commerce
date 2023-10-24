@@ -1,8 +1,11 @@
 import React, {useState} from "react"
 import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai'
 import {BsFillCartFill} from 'react-icons/bs'
+import Modal from '../components/Modal';
+import Login from "../forms/Login";
 
 function Navbar() {
+  const [open, setOpen] = useState(false)
   const [nav, setNav] = useState(false)
   const handleNav = () => {
     setNav(!nav)
@@ -18,7 +21,7 @@ function Navbar() {
                 <a href="" className="border-b-[3px] border-black hover:border-b-[3px] hover:border-[#FDF500]"><li className="p-4">Products</li></a>
                 <a href="/profile/Sample McSampleson" className="border-b-[3px] border-black hover:border-b-[3px] hover:border-[#FDF500]"><li className="p-4">Profile</li></a>
                 <a href="" className="border-b-[3px] border-black hover:border-b-[3px] hover:border-[#FDF500]"><li className="p-4">Cart</li></a>
-                <a href="" className="border-b-[3px] border-black hover:border-b-[3px] hover:border-[#FDF500]"><li className="p-4">Log in | Sign up</li></a>
+                <button onClick={() => setOpen(true)} className="border-b-[3px] border-black hover:border-b-[3px] hover:border-[#FDF500]"><li className="p-4">Log in | Sign up</li></button>
             </ul>
             <div onClick={handleNav} className="block md:hidden">
               <AiOutlineMenu size={30}/>
@@ -42,6 +45,10 @@ function Navbar() {
               </ul>
             </div>
        </div>
+
+       <Modal open={open} onClose={() => setOpen(false)}>
+        <Login></Login>
+       </Modal>
     </>
   )
 }
