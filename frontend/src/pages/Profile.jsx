@@ -1,24 +1,27 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useParams } from 'react-router-dom'
 import defaultAvatar from '../assets/images/defaultAvatar.png'
 import { AiFillEdit } from 'react-icons/ai'
+import Modal from '../components/Modal'
+import EditProfile from '../forms/EditProfile'
 
 const Profile = () => {
+    const [open, setOpen] = useState(false)
     const {userID} = useParams()
     return (
         <>
-            <div className="p-4 sm:p-16">
+            <div className="p-4 sm:py-16 sm:px-32">
                 <div className="m-auto p-6 sm:p-8 bg-black shadow mt-24 text-white">
                     
                     <div className="grid grid-cols-1 lg:grid-cols-3">
-                        <div className="grid grid-cols-2 text-center order-last lg:order-first mt-20 lg:mt-0">
+                        <div className="grid grid-cols-2 text-center order-last lg:order-first mt-20 lg:mt-0 font-bebas">
                             <div>
-                                <p className="font-bold text-xl">22</p>
-                                <p className="">Products</p>
+                                <p className="font-bold text-2xl">22</p>
+                                <p className="text-lg">Transactions</p>
                             </div>
                             <div>
-                                <p className="font-bold text-xl">10</p>
-                                <p className="">Transactions</p>
+                                <p className="font-bold text-2xl">10</p>
+                                <p className="text-lg">Products</p>
                             </div>
                         </div>
 
@@ -32,39 +35,31 @@ const Profile = () => {
                         </div>
 
                         <div className="space-x-8 flex mt-32 lg:mt-0 justify-center">
-                            <button className="text-white py-2 px-4 uppercase bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
+                            <button className="text-black py-2 px-4 bg-[#37EBF3] font-bebas text-xl hover:scale-110">
                                 Transactions
                             </button>
-                            <button className="text-white py-2 px-4 uppercase bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
+                            <button className="text-black py-2 px-4 bg-[#FDF500] font-bebas text-xl hover:scale-110">
                                 Products
                             </button>
                         </div>
                     </div>
 
-                    <div className="mt-20 text-center border-b pb-12">
-                        <h1 className="text-4xl font-medium">{userID}</h1>
-                        <p className="font-light my-3">liame@email.com</p>
-                        <button className="text-black text-center p-2 uppercase text-2xl rounded-[50%] bg-[#FDF500] font-medium shadow hover:shadow-lg transition transform hover:-translate-y-0.5">
+                    <div className="mt-20 text-center border-[#710000] border-b-[2px] pb-12">
+                        <h1 className="text-4xl font-medium font-bebas">{userID}</h1>
+                        <p className="my-3 font-mont">liame@email.com</p>
+                        <button onClick={() => setOpen(true)} className="text-black text-center p-2 uppercase text-2xl rounded-[50%] bg-[#FDF500] font-medium shadow hover:shadow-lg transition transform hover:-translate-y-0.5">
                             <AiFillEdit/>
                         </button>
                         <br />
                         <br />
                     </div>
 
-                    <div className="mt-12 flex flex-col justify-center">
-                        <p className="text-gray-600 text-center font-light lg:px-16">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non recusandae, commodi repudiandae exercitationem, architecto assumenda nobis doloribus, 
-                            deleniti obcaecati quaerat at quam! Rerum vitae quam culpa! Voluptates dolore sint. Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                            Non recusandae, commodi repudiandae exercitationem, architecto assumenda nobis doloribus, deleniti obcaecati quaerat at quam! Rerum vitae quam culpa! 
-                            Voluptates dolore sint.
-                        </p>
-                        <button className="text-indigo-500 py-2 px-4  font-medium mt-4">
-                            Show more
-                        </button>
-                    </div>
-
                 </div>
-            </div>  
+            </div>
+
+            <Modal open={open} onClose={() => setOpen(false)}>
+                <EditProfile/>
+            </Modal>  
         </>
     )
 }
