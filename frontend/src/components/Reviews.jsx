@@ -4,7 +4,7 @@ import { AiOutlineStar, AiFillStar } from 'react-icons/ai'
 export const Reviews = () => {
   return (
     <div>
-        <div className='w-full sm:w-[90%] m-auto bg-zinc-900 text-white'>
+        <div className='w-full sm:w-[90%] m-auto bg-[#272932] text-white'>
             <div className='text-black bg-[#FDF500] text-center text-2xl font-bebas font-bold'>
                 Reviews
             </div>

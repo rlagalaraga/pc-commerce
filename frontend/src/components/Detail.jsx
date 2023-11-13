@@ -28,7 +28,7 @@ export const Detail = () => {
   return (
     <div>
       <div className='bg-black text-white w-full sm:w-[90%] m-auto'>
-        <div className='bg-gradient-to-r from-zinc-900 via-zinc-700 to-zinc-900 flex text-white border-b-[1px] border-[#FDF500]'>
+        <div className='bg-gradient-to-r from-zinc-800 via-zinc-700 to-zinc-800 flex text-white border-b-[1px] border-[#FDF500]'>
           <button onClick={prevSlide} className='hover:bg-[#FDF500] hover:text-black bg-black text-white m-auto rounded-[50px] bg-opacity-30'>
             <RiArrowLeftDoubleLine className='text-5xl sm:text-7xl hover:cursor-pointer'></RiArrowLeftDoubleLine>
           </button>
