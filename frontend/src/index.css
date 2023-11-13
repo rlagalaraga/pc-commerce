@@ -18,7 +18,9 @@
 }
 
 body{
-    background-color: #272932;
+    --tw-bg-opacity: 1;
+    background-color: rgb(24 24 27 / var(--tw-bg-opacity));
+    /* background-color: #272932; */
 }
 
 .buttonHero:hover{

@@ -15,7 +15,6 @@ class CustomUserSerializer(serializers.Serializer):
     last_name = serializers.CharField(required=True, validators=[alpha])
     email = serializers.EmailField(validators=[EmailValidator(message="Enter a valid email address.")], required=True)
     password = serializers.CharField(required=True, write_only=True)
-    password2 = serializers.CharField(label="Confirm Password", required=True, write_only=True)
     avatar = serializers.ImageField(required=False, default='defaultAvatar.png')
 
     class Meta:
@@ -25,7 +24,6 @@ class CustomUserSerializer(serializers.Serializer):
             'last_name',
             'email',
             'password',
-            'password2',
             'avatar',
         }
     
