@@ -15,6 +15,7 @@ class CustomUserSerializer(serializers.Serializer):
     last_name = serializers.CharField(required=True, validators=[alpha])
     email = serializers.EmailField(validators=[EmailValidator(message="Enter a valid email address.")], required=True)
     password = serializers.CharField(required=True, write_only=True)
+    password2 = serializers.CharField(label="Confirm Password", required=True, write_only=True)
     avatar = serializers.ImageField(required=False, default='defaultAvatar.png')
 
     class Meta:
@@ -24,6 +25,7 @@ class CustomUserSerializer(serializers.Serializer):
             'last_name',
             'email',
             'password',
+            'password2',
             'avatar',
         }
     
@@ -50,11 +52,13 @@ class CustomUserSerializer(serializers.Serializer):
 class UpdateProfileSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(required=False, validators=[alpha])
     last_name = serializers.CharField(required=False, validators=[alpha])
+    email = serializers.EmailField(validators=[EmailValidator(message="Enter a valid email address.")], required=True)
     avatar = serializers.ImageField(required=False, default='defaultAvatar.png')
 
     class Meta:
         model = CustomUser
         fields = (
+            'email',
             'first_name',
             'last_name',
             'avatar',
@@ -71,6 +75,7 @@ class UpdateProfileSerializer(serializers.ModelSerializer):
         if user.pk != instance.pk:
             raise serializers.ValidationError({"authorize": "Unauthorized Access."})
         
+        instance.email = validated_data['email']
         instance.first_name = validated_data['first_name']
         instance.last_name = validated_data['last_name']
         instance.avatar = validated_data['avatar']

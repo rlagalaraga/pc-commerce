@@ -17,6 +17,11 @@
     src: url('../public/fonts/Montserrat.ttf');
 }
 
+@font-face {
+    font-family: 'Cyber';
+    src: url('../public/fonts/Cyber.ttf');
+}
+
 body{
     --tw-bg-opacity: 1;
     background-color: rgb(24 24 27 / var(--tw-bg-opacity));

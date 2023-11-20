@@ -8,7 +8,8 @@ module.exports = {
       fontFamily:{
         'cyberpunk': ['Cyberpunk'],
         'bebas': ['BebasNeue'],
-        'mont': ['Montserrat']
+        'mont': ['Montserrat'],
+        'cyber': ['Cyber']
       }
     },
   },
