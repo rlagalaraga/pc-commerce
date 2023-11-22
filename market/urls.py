@@ -6,17 +6,23 @@ app_name = "market"
 
 urlpatterns = [
     #API urls
-    path('api/get_products/', api.ProductViewSet.as_view({'get':'get_products'})),
-    path('api/get_user_product/<int:product_id>/', api.ProductViewSet.as_view({'get':'get_user_product'})),
-    path('api/get_productDetails/<int:product_id>/', api.ProductViewSet.as_view({'get':'get_productDetails'})),
-    path('api/get_searchResult/', api.ProductViewSet.as_view({'get':'get_searchResult'})),
+    path('api/get/products/', api.ProductViewSet.as_view({'get':'get_products'})),
+    path('api/get/user/product/<int:product_id>/', api.ProductViewSet.as_view({'get':'get_user_product'})),
+    path('api/get/productDetails/<int:product_id>/', api.ProductViewSet.as_view({'get':'get_productDetails'})),
+    path('api/get/searchResult/', api.ProductViewSet.as_view({'get':'get_searchResult'})),
+    path('api/get/products/<str:category>/', api.ProductViewSet.as_view({'get':'get_products_by_category'})),
+    path('api/get/product/<int:id>/', api.ProductViewSet.as_view({'get':'get_product_by_id'})),
 
-    path('api/wishlist_product/<int:product_id>/', api.WishlistViewSet.as_view({'post':'wishlist_product'})),
-    path('api/get_wishlisted_products/<int:user_id>/', api.WishlistViewSet.as_view({'get':'get_wishlisted_products'})),
+    path('api/wishlist/product/<int:product_id>/', api.WishlistViewSet.as_view({'post':'wishlist_product'})),
+    path('api/get/wishlisted/products/<int:user_id>/', api.WishlistViewSet.as_view({'get':'get_wishlisted_products'})),
 
-    path('api/register_product/', api.LoggedProductViewSet.as_view({'post':'register_product'})),
-    path('api/modify_product/<int:product_id>/', api.LoggedProductViewSet.as_view({'put':'modify_product'})),
-    path('api/delete_product/<int:product_id>/', api.LoggedProductViewSet.as_view({'delete':'delete_product'})),
+    path('api/register/product/', api.LoggedProductViewSet.as_view({'post':'register_product'})),
+    path('api/modify/product/<int:product_id>/', api.LoggedProductViewSet.as_view({'put':'modify_product'})),
+    path('api/delete/product/<int:product_id>/', api.LoggedProductViewSet.as_view({'delete':'delete_product'})),
+
+    path('api/get/categories/', api.CategoryViewSet.as_view({'get':'get_categories'})),
+    path('api/get/category/<int:id>/', api.CategoryViewSet.as_view({'get':'get_category_by_id'})),
+    path('api/get/category/<str:name>/', api.CategoryViewSet.as_view({'get':'get_category_by_name'})),
 
     #Review API
     # path('api/get_comment_Object/<int:product_id>/', api.ReviewViewSet.as_view({'get':'get_comment_Object'})),

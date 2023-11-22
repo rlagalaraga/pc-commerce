@@ -43,9 +43,9 @@ function App() {
         <Route path='/transactions/:userID' element={<Transactions/>}/>
         
         <Route path='/' element={<Home />} />
-        <Route path='/products' element={<Products />} />
+        <Route path='/products/' element={<Products />} />
         <Route path='/products/:productType' element={<Products />} />
-        <Route path='/products/detail/:productID'  element={<ProductDetail />} />
+        <Route path='/product/:productID'  element={<ProductDetail />} />
         <Route path='/signup' element={<Signup/>}/>
         <Route path='*' element={<NotFound/>}></Route>
       </Routes>

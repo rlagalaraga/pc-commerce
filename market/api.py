@@ -1,8 +1,8 @@
 from rest_framework.response import Response
 from django.http import JsonResponse
 from rest_framework import status, viewsets
-from market.models import Product, ProductImages
-from market.serializers import ProductSerializer, UpdateProductSerializer, ProductSellerSerializer
+from market.models import Product, ProductImages, Category
+from market.serializers import ProductSerializer, UpdateProductSerializer, ProductSellerSerializer, CategorySerializer
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from core.custom_permissions import IsAuthenticatedAndOwner
@@ -15,9 +15,29 @@ def get_productObject(self, product_id):
     except Product.DoesNotExist:
         return None
 
+class CategoryViewSet(viewsets.ViewSet):
+    permission_classes = [AllowAny]
+
+    def get_categories(self, request, *args, **kwargs):
+        categories = Category.objects.all()
+        if categories:
+            serializer = CategorySerializer(categories, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def get_category_by_id(self, request, *args, **kwargs):
+        category = Category.objects.get(id=self.kwargs['id'])
+        serializer = CategorySerializer(category)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def get_category_by_name(self, request, *args, **kwargs):
+        category = Category.objects.get(name=self.kwargs['name'])
+        serializer = CategorySerializer(category)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 class ProductViewSet(viewsets.ViewSet):
-    parser_classes = (MultiPartParser, FormParser)
     permission_classes = [AllowAny]
 
     #Get all registered products
@@ -25,15 +45,23 @@ class ProductViewSet(viewsets.ViewSet):
         #Display by latest product
         products = Product.objects.all().order_by('-added')
         if products:
-            serialized = ProductSellerSerializer(products, many=True)
-            return Response(serialized.data, status=status.HTTP_200_OK)
+            serializer = ProductSerializer(products, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         else:
-            return Response(serialized.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def get_products_by_category(self, request, *args, **kwargs):
+        try:
+            category = Category.objects.get(name=self.kwargs['category'])
+        except Category.DoesNotExist:
+            return Response("Category not found", status=status.HTTP_404_NOT_FOUND)
         
+        products = Product.objects.filter(productType=category)
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     #Get products sold by specific user
-    def get_user_product(self, request, product_id, format=None):
-        
+    def get_user_product(self, request, product_id, format=None):   
         products = Product.objects.filter(seller_id=product_id)
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -58,10 +86,7 @@ class ProductViewSet(viewsets.ViewSet):
             serializer = ""
             return Response(serializer, status=status.HTTP_200_OK)
 
-
-
-    #Uses helper method to get product specified and get its data
-    def get_productDetails(self, request, product_id, *args, **kwargs):
+    def get_product_details(self, request, product_id, *args, **kwargs):
         wishlisted = False
         product_instance = get_productObject(self, product_id)
         if not product_instance:
@@ -76,6 +101,11 @@ class ProductViewSet(viewsets.ViewSet):
         print(product_instance.users_wishlist.filter(id=request.user.id).exists())
         serializer = ProductSellerSerializer(product_instance)
         return JsonResponse({'data' : serializer.data, 'wishlisted' : wishlisted}, status=status.HTTP_200_OK)
+    
+    def get_product_by_id(self, request, *args, **kwargs):
+        product = Product.objects.get(id=self.kwargs['id'])
+        serializer = ProductSerializer(product)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 

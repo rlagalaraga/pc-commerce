@@ -1,12 +1,35 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {BsFillCartFill} from 'react-icons/bs'
 import {AiOutlineCaretUp, AiOutlineCaretDown} from 'react-icons/ai'
 import {useParams} from 'react-router-dom'
+import axios from 'axios'
+import URL from '../Api-constants'
+
+const baseURL = "http://127.0.0.1:8000/"
 
 export const ProductCards = () => {
     const { productType } = useParams()
     const [dropdown, setDropdown] = useState(false)
+    const [products, setProducts] = useState(null)
+
+    useEffect(() => {
+        let url = URL.get_products;
+        if(productType){
+            url = url + productType + "/"
+        }
+        
+        axios.get(url).then(function(res){
+            setProducts(res.data)
+        })
+
+    },[])
+
+    useEffect(() => {
+        if(products){
+            console.log(products)
+        }
+    },[products])
+
     return (
         <div className='text-white'>
             <div>
@@ -36,22 +59,26 @@ export const ProductCards = () => {
                     </div>
                 </div>
                 <div className='w-full ms-auto py-4 px-4 lg:pr-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3'>
-                    {/* card */}
-                    <div className='font-mont font-bold h-[520px] bg-black text-white border-zinc-600 border-[1px]'>
-                        {/* overlay */}
-                        <div>
-                            <img className='w-full h-[300px] object-cover bg-gradient-to-r from-zinc-800 via-zinc-700 to-zinc-800' src="https://cdn.originpc.com/img/gaming-desktops.jpg" />
-                            <div className='p-4 h-[100px] overflow-auto text-xs sm:text-sm'>
-                                <a href='detail/PRODUCT1'>Sample Product Lorem Ipsum 9080 Sample Product Lorem Ipsum 9080 Sample Product Lorem Ipsum 9080 Sample Product Lorem Ipsum 9080</a>
-                            </div>
-                            <div className='pl-4 pt-1 h-[45px] font-bebas text-2xl sm:text-3xl'>
-                                <h2>420.69$</h2>
-                            </div>
-                            <div className='p-4 h-[75px] text-sm sm:text-base'>
-                                <button className='flex p-2 text-[#FDF500] border-[1px] border-[#FDF500] w-auto active:text-black active:bg-[#FDF500]'><BsFillCartFill className='pr-1 h-5 text-3xl'/>Add to cart</button>
-                            </div>
-                        </div>
-                    </div>
+                    {products &&(
+                        <>
+                            {products.map((product) => (
+                                <div className='font-cyber font-bold h-[570px] bg-black text-white border-zinc-600 border-[1px]'>
+                                    <div>
+                                        <img className='w-full h-[350px] object-scale-down bg-gradient-to-r from-zinc-800 via-zinc-700 to-zinc-800' src={baseURL + product.images[0].image} />
+                                        <div className='p-4 h-[100px] overflow-auto text-lg sm:text-xl'>
+                                            <a href={'/product/' + product.id + '/'}>{product.name}</a>
+                                        </div>
+                                        <div className='pl-4 pt-1 h-[45px] text-green-600 text-xl sm:text-2xl'>
+                                            <h2>{product.price}$</h2>
+                                        </div>
+                                        <div className='p-4 h-[75px] text-base sm:text-lg'>
+                                            <button className='flex p-2 text-[#FDF500] border-[1px] border-[#FDF500] w-auto active:text-black active:bg-[#FDF500]'><BsFillCartFill className='pr-1 h-5 text-3xl'/>Add to cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </>
+                    )}
                 </div>
             </div>
         </div>

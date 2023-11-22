@@ -6,7 +6,7 @@ class CustomUser(AbstractUser):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, unique=True)
-    avatar = models.ImageField(blank=True, null=True, upload_to='profile_images')
+    avatar = models.ImageField(blank=True, null=True, upload_to='profile-images')
     username = None
 
     USERNAME_FIELD = "email"

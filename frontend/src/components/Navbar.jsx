@@ -31,7 +31,6 @@ const Navbar = ({ refreshKey }) => {
     axios.get(URL.get_user).then(function(res){
       setCurrentUser(true)
       setUser(res.data.user)
-      console.log(user)
     })
     .catch(function(error){
       setCurrentUser(false)
