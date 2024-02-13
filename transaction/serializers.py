@@ -1,43 +1,28 @@
 from rest_framework import serializers
-from cart.serializers import CartSerializer
-from .models import Product, CustomUser, CartItem, Transaction, ProductImages
+from .models import Transaction
+from market.models import ProductImages
 
-class ProductImageSerializer(serializers.ModelSerializer):
+class ProductImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImages
-        fields = '__all__'
+        fields = ('image',)
 
 class TransactionSerializer(serializers.ModelSerializer):
+    price = serializers.SerializerMethodField()
+    images = serializers.SerializerMethodField()
+    prod_name = serializers.SerializerMethodField()
+
     class Meta:
         model = Transaction
         fields = '__all__'
 
-class TransactionDisplaySerializer(serializers.ModelSerializer):
-    product_name = serializers.CharField(source='transaction_item.product')
-    product_image = serializers.SerializerMethodField()
-    buyer_name = serializers.CharField(source='transaction_buyer.username')
-    seller_name = serializers.CharField(source='transaction_item.product.seller.get_full_name')
-
-    class Meta:
-        model = Transaction
-        fields = ('number_identifier', 'product_name', 
-                  'product_image', 'seller_name', 
-                  'transaction_quantity', 'subtotal', 
-                  'buyer_name', 'checkout_date')
+    def get_price(self, obj):
+        return obj.product.price * obj.quantity
     
-    def get_product_image(self, obj):
-        # Fetch the product image associated with the transaction item
-        try:
-            #Filter from image list and return first image
-            product_image = ProductImages.objects.filter(product=obj.transaction_item.product)
-            firstImage = product_image.first()
-            return firstImage.image.url
-        except ProductImages.DoesNotExist:
-            return None
-
-
-class ProductSellerSerializer(serializers.ModelSerializer):
-    seller = serializers.CharField(source = 'seller.get_full_name')
-    class Meta:
-        model = Product
-        fields = '__all__'
+    def get_images(self, obj):
+        product_images = obj.product.images.all() if obj.product else None
+        serializer = ProductImagesSerializer(product_images, many=True)
+        return serializer.data
+    
+    def get_prod_name(self, obj):
+        return obj.product.name

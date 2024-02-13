@@ -12,10 +12,11 @@ const Transactions = () => {
         <div className='bg-[#272932] flex items-center h-[75px] md:h-[100px] border-t-[1px] border-zinc-600'>
           <div className='flex items-center px-5 w-[80%] md:w-[85%] h-[75px] md:h-[100px] overflow-auto'>
             <div className='w-[150px] pr-2 md:pr-4 overflow-auto'>
-              <p className='font-bebas text-lg md:text-xl'>420.69$</p>
-              <p className='text-sm font-bebas pr-1'>Qty: 69</p>
+              <p className='font-cyber text-xs md:text-sm'>31/07/2024</p>
+              <p className='text-xs md:text-sm font-bebas pr-1'>Qty: 69</p>
+              <p className='font-cyber text-green-500 text-sm md:text-xl'>420.69$</p>
             </div>
-            <a href='' className='text-xs md:text-base font-mont'>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+            <a href='' className='text-xs md:text-base font-cyber'>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
           </div>
           <div className="w-[100px] md:w-[150px] border-t-[1px] border-zinc-600">
             <img className='object-cover w-full h-[75px] md:h-[100px] bg-gradient-to-r from-zinc-800 via-zinc-700 to-zinc-800' src="https://cdn.originpc.com/img/gaming-desktops.jpg" />

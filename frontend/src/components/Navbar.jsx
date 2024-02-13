@@ -67,7 +67,7 @@ const Navbar = ({ refreshKey }) => {
                 {currentUser && user && (
                   <>
                     <a href="/transactions/Sample McSampleson" className="border-b-[3px] border-black hover:border-b-[3px] hover:border-[#FDF500]"><li className="p-4">Transactions</li></a>
-                    <a href="/cart/Sample McSampleson" className="border-b-[3px] border-black hover:border-b-[3px] hover:border-[#FDF500]"><li className="p-4">Cart</li></a>
+                    <a href={"/cart/" + user.id} className="border-b-[3px] border-black hover:border-b-[3px] hover:border-[#FDF500]"><li className="p-4">Cart</li></a>
                     
                     <a href={"/profile/" + user.id} className="border-b-[3px] border-black hover:border-b-[3px] hover:border-[#FDF500]"><li className="p-4">
                       {currentUser && user && user.avatar ? 

@@ -1,6 +1,6 @@
 from django.db import models
 from users.models import CustomUser
-from market.models import Product, ProductImages
+from market.models import Product
 from django.core.validators import MinValueValidator
 
 class CartItem(models.Model):

@@ -10,6 +10,7 @@ const Cart = () => {
   const [open, setOpen] = useState(false)
   const [cart, setCart] = useState(null)
   const [total, setTotal] = useState(0)
+  const [subtotal, setSubtotal] = useState(null)
 
   useEffect(() => {
     getItems()
@@ -18,6 +19,7 @@ const Cart = () => {
   function getItems(){
     axios.get(URL.get_cart_items).then(function(res){
       setCart(res.data)
+      console.log(res.data)
     })
     .catch(function(error){
       console.log(error)
@@ -25,9 +27,10 @@ const Cart = () => {
   }
 
   useEffect(() => {
-    console.log(cart)
-    const totalPrice = cart.reduce((acc, item) => acc + item.price, 0);
-    setTotal(totalPrice);
+    if(cart){
+      const totalPrice = cart.reduce((acc, item) => acc + item.price, 0);
+      setTotal(totalPrice);
+    }
   },[cart])
 
   function removeItem(id){
@@ -47,7 +50,7 @@ const Cart = () => {
     }
   }
 
-  function changeQuantity(id, qty){
+  function changeQuantity(id, price, qty){
     if(qty > 0){
       axios.put(URL.cart_item + id + '/',
       {
@@ -61,6 +64,7 @@ const Cart = () => {
         withCredentials: true,
       }).then(function(res){
         console.log("quantity changed")
+        getItems()
       })
     }
     else{
@@ -70,7 +74,7 @@ const Cart = () => {
 
   return (
     <div className='py-5'>
-      <h1 className='font-cyberpunk w-[90%] bg-black text-5xl text-center py-5 text-[#FDF500] border-x-[1px] border-t-[1px] border-[#710000] m-auto'>CART</h1>
+      <h1 className='font-bebas w-[90%] bg-black text-5xl text-center py-5 text-[#37ebf3] border-x-[1px] border-t-[1px] border-[#710000] m-auto'>CART</h1>
       <div className='bg-zinc-800 w-[90%] h-[450px] sm:h-[500px] md:h-[600px] border-x-[1px] border-[#710000] text-white overflow-auto m-auto'>
         {cart &&(
           <>
@@ -81,7 +85,7 @@ const Cart = () => {
                     <div className='w-full p-2'>
                       <p className='font-cyber text-xs md:text-base text-green-500'>$ {item.price}</p>
                       <label className='text-xs font-cyber pr-1'>Qty:</label>
-                      <input type="number" onChange={(e) => changeQuantity(item.id, e.target.value)} defaultValue={item.quantity} min={1} className='w-[30px] bg-zinc-900 text-center text-xs md:py-1 font-cyber' />
+                      <input type="number" onChange={(e) => changeQuantity(item.id, item.price, e.target.value)} defaultValue={item.quantity} min={1} className='w-[30px] bg-zinc-900 text-center text-xs md:py-1 font-cyber' />
                       <br />
                       <button onClick={() => removeItem(item.id)} className='font-cyber text-sm text-[#FDF500]'>Remove</button>
                     </div>

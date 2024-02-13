@@ -4,11 +4,10 @@ from transaction.models import Transaction
 class TransactionAdmin(admin.ModelAdmin):
     list_display = (
                     'id',
-                    'number_identifier',
-                    'transaction_item',
-                    'transaction_buyer',
-                    'transaction_quantity',
-                    'subtotal',
+                    'product',
+                    'buyer',
+                    'quantity',
+                    'price',
                     'checkout_date')
 
 admin.site.register(Transaction, TransactionAdmin)
