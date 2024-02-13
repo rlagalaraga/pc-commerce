@@ -1,16 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
-import URL from '../Api-constants';
-
-const getCsrfToken = () => {
-  const csrfCookie = document.cookie.split('; ')
-    .find(row => row.startsWith('csrftoken='));
-
-  return csrfCookie ? csrfCookie.split('=')[1] : null;
-};
-
-// Use the function to get the CSRF token
-const csrfToken = getCsrfToken();
+import {URL} from "../Api-constants";
+import csrfToken from "../CSRFToken"
 
 const EditProfile = ({user}) => {
 

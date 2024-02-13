@@ -1,8 +1,8 @@
 from rest_framework.response import Response
 from django.http import JsonResponse
 from rest_framework import status, viewsets
-from market.models import Product, ProductImages, Category
-from market.serializers import ProductSerializer, UpdateProductSerializer, ProductSellerSerializer, CategorySerializer
+from market.models import Product, ProductImages, Category, Review
+from market.serializers import ProductSerializer, UpdateProductSerializer, ProductSellerSerializer, CategorySerializer, ReviewSerializer
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from core.custom_permissions import IsAuthenticatedAndOwner
@@ -14,6 +14,24 @@ def get_productObject(self, product_id):
         return Product.objects.get(id=product_id)
     except Product.DoesNotExist:
         return None
+    
+
+class ReviewViewSet(viewsets.ViewSet):
+    permission_classes = [AllowAny]
+
+    def get_all_reviews(self, request, *args, **kwargs):
+        reviews = Review.objects.all()
+        if reviews:
+            serializer = ReviewSerializer(reviews, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+    def get_reviews_by_product(self, request, *args, **kwargs):
+        reviews = Review.objects.filter(product = self.kwargs['id'])
+        serializer = ReviewSerializer(reviews, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 class CategoryViewSet(viewsets.ViewSet):
     permission_classes = [AllowAny]

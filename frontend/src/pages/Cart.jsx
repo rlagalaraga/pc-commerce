@@ -1,39 +1,109 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Modal from '../components/Modal'
 import {useParams} from 'react-router-dom'
+import axios from 'axios'
+import {URL, baseURL} from "../Api-constants";
+import csrfToken from '../CSRFToken';
 
 const Cart = () => {
   const {userID} = useParams()
   const [open, setOpen] = useState(false)
+  const [cart, setCart] = useState(null)
+  const [total, setTotal] = useState(0)
+
+  useEffect(() => {
+    getItems()
+  },[])
+
+  function getItems(){
+    axios.get(URL.get_cart_items).then(function(res){
+      setCart(res.data)
+    })
+    .catch(function(error){
+      console.log(error)
+    })
+  }
+
+  useEffect(() => {
+    console.log(cart)
+    const totalPrice = cart.reduce((acc, item) => acc + item.price, 0);
+    setTotal(totalPrice);
+  },[cart])
+
+  function removeItem(id){
+    if(id){
+      axios.delete(URL.cart_item + id + '/',
+      {
+        headers:{
+          'Content-Type': 'multipart/form-data',
+          'X-CSRFToken': csrfToken,
+        },
+        withCredentials: true,
+      }
+      ).then(function(res){
+        alert("Removed!")
+        getItems()
+      })
+    }
+  }
+
+  function changeQuantity(id, qty){
+    if(qty > 0){
+      axios.put(URL.cart_item + id + '/',
+      {
+        quantity: qty
+      },
+      {
+        headers:{
+          'Content-Type': 'multipart/form-data',
+          'X-CSRFToken': csrfToken,
+        },
+        withCredentials: true,
+      }).then(function(res){
+        console.log("quantity changed")
+      })
+    }
+    else{
+      alert("Quantity cannot be below 1!")
+    }
+  }
+
   return (
-    <div className='py-10'>
-      <h1 className='font-bebas w-[90%] sm:w-[80%] md:w-[70%] lg:w-[50%] bg-black text-5xl text-center py-5 text-[#FDF500] m-auto'>CART</h1>
-      <div className='bg-zinc-800 w-[90%] sm:w-[80%] md:w-[70%] lg:w-[50%] h-[450px] sm:h-[500px] md:h-[600px] text-white overflow-auto m-auto'>
-        <div className='bg-[#272932] flex items-center h-[75px] md:h-[100px] border-t-[1px] border-zinc-600'>
-          <div className='border-r-[1px] border-zinc-600 flex items-center h-full text-center px-4 md:px-7'>
-            <input type="checkbox" />
-          </div>
-          <div className='flex items-center px-5 w-[70%] md:w-[80%] h-[75px] md:h-[100px] overflow-auto'>
-            <div className='w-[150px] pr-2 md:pr-4 overflow-auto'>
-              <p className='font-bebas text-lg md:text-xl'>420.69$</p>
-              <label className='text-sm font-bebas pr-1'>Qty:</label>
-              <input type="number" defaultValue={1} min={1} className='w-[50px] bg-zinc-900 text-center text-xs md:py-1 font-bebas' />
-            </div>
-            <a href='' className='text-xs md:text-base font-mont'>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
-          </div>
-          <div className='w-[100px] md:w-[150px] border-t-[1px] border-zinc-600'>
-            <img className='object-cover w-full h-[75px] md:h-[100px] bg-gradient-to-r from-zinc-800 via-zinc-700 to-zinc-800' src="https://cdn.originpc.com/img/gaming-desktops.jpg" />
-          </div>
-        </div>
+    <div className='py-5'>
+      <h1 className='font-cyberpunk w-[90%] bg-black text-5xl text-center py-5 text-[#FDF500] border-x-[1px] border-t-[1px] border-[#710000] m-auto'>CART</h1>
+      <div className='bg-zinc-800 w-[90%] h-[450px] sm:h-[500px] md:h-[600px] border-x-[1px] border-[#710000] text-white overflow-auto m-auto'>
+        {cart &&(
+          <>
+            {cart.map((item) => (
+              <div key={item.id} className='bg-black/50 flex items-center h-[100px] border-t-[1px] border-[#710000]'>
+                <div className='flex items-center w-[70%] md:w-[80%] h-full overflow-auto'>
+                  <div className='flex justify-center items-center w-[80px] md:w-[150px] pr-2 md:pr-4 overflow-auto h-full border-r-[1px] border-[#710000]'>
+                    <div className='w-full p-2'>
+                      <p className='font-cyber text-xs md:text-base text-green-500'>$ {item.price}</p>
+                      <label className='text-xs font-cyber pr-1'>Qty:</label>
+                      <input type="number" onChange={(e) => changeQuantity(item.id, e.target.value)} defaultValue={item.quantity} min={1} className='w-[30px] bg-zinc-900 text-center text-xs md:py-1 font-cyber' />
+                      <br />
+                      <button onClick={() => removeItem(item.id)} className='font-cyber text-sm text-[#FDF500]'>Remove</button>
+                    </div>
+                  </div>
+                  <a href='' className='text-xs sm:text-sm md:text-base lg:text-lg font-cyber m-auto text-[#37ebf3]'>{item.prod_name}</a>
+                </div>
+                <div className='flex justify-center items-center w-[30%] md:w-[20%] border-t-[1px] border-l-[1px] border-[#710000]'>
+                  <img className='object-scale-down w-full h-[100px] p-2 bg-black/5' src={baseURL + item.images[0].image} />
+                </div>
+              </div>
+            ))}
+          </>
+        )}
 
       </div>
-      <div className='bg-black w-[90%] sm:w-[80%] md:w-[70%] lg:w-[50%] text-white m-auto p-4'>
-        <div className='flex justify-between pb-2 font-bebas text-2xl'>
-          <p>Subtotal:</p>
-          <p>420.69$</p>
+      <div className='bg-black w-[90%] text-white m-auto p-4 border-x-[1px] border-y-[1px] border-[#710000]'>
+        <div className='flex justify-center pb-2 font-bebas text-2xl'>
+          <p className='text-green-500'><small className='font-cyber text-[#37ebf3]'>Total:</small> $ {total}</p>
         </div>
-        <button onClick={() => setOpen(true)} className='bg-[#FDF500] text-black w-full py-2 font-bebas font-bold text-2xl active:bg-[#37ebf3]'>Checkout</button>
-
+        <div className='flex justify-center'>
+          <button onClick={() => setOpen(true)} className='bg-[#FDF500] text-black w-[50%] py-2 font-bebas font-bold text-2xl active:bg-[#37ebf3]'>Checkout</button>
+        </div>
       </div> 
       <Modal open={open} onClose={() => setOpen(false)}>
         <div className='px-4 pt-4 w-[300px]'>

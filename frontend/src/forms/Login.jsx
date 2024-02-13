@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import Modal from '../components/Modal'
 import axios from 'axios'
-import URL from '../Api-constants';
+import {URL} from "../Api-constants";
 
 const Login = () => {
     const [email, setEmail] = useState('')

@@ -24,6 +24,9 @@ urlpatterns = [
     path('api/get/category/<int:id>/', api.CategoryViewSet.as_view({'get':'get_category_by_id'})),
     path('api/get/category/<str:name>/', api.CategoryViewSet.as_view({'get':'get_category_by_name'})),
 
+    path('api/get/reviews/', api.ReviewViewSet.as_view({'get':'get_all_reviews'})),
+    path('api/get/reviews/<int:id>/', api.ReviewViewSet.as_view({'get':'get_reviews_by_product'}))
+
     #Review API
     # path('api/get_comment_Object/<int:product_id>/', api.ReviewViewSet.as_view({'get':'get_comment_Object'})),
     # path('api/get_product_comments/<int:product_id>/', api.ReviewViewSet.as_view({'get':'get_product_comments'})),

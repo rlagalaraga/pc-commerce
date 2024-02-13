@@ -1,7 +1,7 @@
 from django.db import models
 from users.models import CustomUser
 from django.core.exceptions import ValidationError
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 # PRODUCT_TYPE_CHOCIES = [('Processor', 'Processor'),
 #                     ('Motherboard', 'Motherboard'),
@@ -77,12 +77,14 @@ class Review(models.Model):
     product = models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE)
     author = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     date_added = models.DateTimeField(auto_now_add=True)
-    rating = models.FloatField(default=0)
+    rating = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
     comment = models.TextField(max_length=1000)
 
     class Meta:
         ordering = ['date_added']
 
+    def __str__(self):
+        return str(self.author) + "'s review (" + str(self.product) + ")"
     
 
 # Create your models here.

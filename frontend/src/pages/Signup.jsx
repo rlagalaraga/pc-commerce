@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from "axios";
-import URL from '../Api-constants';
+import {URL} from "../Api-constants";
 
 const Signup = () => {
 
@@ -67,8 +67,8 @@ const Signup = () => {
         axios.post(
           URL.login_user,
           {
-              email: formData.email,
-              password: formData.password
+            email: formData.email,
+            password: formData.password
           }
         ).then(function(res){
             console.log('Logged in')

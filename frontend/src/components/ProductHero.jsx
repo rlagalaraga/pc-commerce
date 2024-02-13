@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import gamingBg from '../assets/videos/fan.mp4'
 import {useParams} from 'react-router-dom'
 import axios from 'axios'
-import URL from '../Api-constants'
+import {URL} from "../Api-constants";
 
 export const ProductHero = () => {
   const { productType } = useParams()

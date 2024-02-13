@@ -4,7 +4,7 @@ import {BsFillCartFill} from 'react-icons/bs'
 import Modal from '../components/Modal';
 import Login from "../forms/Login";
 import axios from "axios";
-import URL from "../Api-constants";
+import {URL, baseURL} from "../Api-constants";
 import defaultAvatar from "../assets/images/defaultAvatar.png"
 
 const getCsrfToken = () => {
@@ -16,7 +16,7 @@ const getCsrfToken = () => {
 
 // Use the function to get the CSRF token
 const csrfToken = getCsrfToken();
-const baseURL = "http://127.0.0.1:8000/"
+
 
 const Navbar = ({ refreshKey }) => {
   const [user, setUser] = useState(null);
@@ -49,7 +49,7 @@ const Navbar = ({ refreshKey }) => {
       }
     ).then(function(res){
       setCurrentUser(false)
-      window.location.reload(false);
+      window.location.href = '/'
     });
   }
 

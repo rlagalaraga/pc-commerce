@@ -12,7 +12,7 @@ import UserProducts from './pages/UserProducts';
 import NotFound from './components/NotFound';
 import {Routes, Route} from 'react-router-dom';
 import axios from "axios";
-import URL from './Api-constants';
+import {URL, baseURL} from "./Api-constants";
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';

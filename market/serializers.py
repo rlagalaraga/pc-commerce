@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, ProductImages, Category
+from .models import Product, ProductImages, Category, Review
 
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
@@ -63,7 +63,7 @@ class ProductSellerSerializer(serializers.ModelSerializer):
             'averageRating',
             'availability',
             'quantity',
-            'id'
+            'id',
         )
 
 # class ReviewSerializer(serializers.ModelSerializer):
@@ -86,3 +86,25 @@ class UpdateProductSerializer(serializers.ModelSerializer):
             'availability',
             'price',
         )
+
+    
+class ReviewSerializer(serializers.ModelSerializer):
+    author_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Review
+        fields = (
+            'id',
+            'product',
+            'author',
+            'author_name',
+            'date_added',
+            'rating',
+            'comment',
+        )
+
+    def get_author_name(self, obj):
+        author = obj.author
+        if author:
+            return author.get_full_name()
+        return None

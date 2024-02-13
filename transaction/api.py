@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status, viewsets
 from django.db.models import Max
-from . models import Cart, Transaction, Product
+from . models import Transaction, Product, CartItem
 from rest_framework import permissions
 from core.custom_permissions import IsAuthenticatedAndOwner
 from transaction.serializers import TransactionSerializer, TransactionDisplaySerializer
@@ -30,7 +30,7 @@ class TransactionViewSet(viewsets.ViewSet):
             return Response(status=status.HTTP_400_BAD_REQUEST)
     
     def create_transaction(self, request, user_id, *args, **kwargs):
-        cart_items = Cart.objects.filter(buyer_id=user_id, is_sold=False)
+        cart_items = CartItem.objects.filter(buyer_id=user_id, is_sold=False)
         
         if user_id == None or request.user.id == None:
             print("You must login to create transactions!")
