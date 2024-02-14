@@ -1,8 +1,6 @@
 import React,  {useState, useEffect} from 'react'
 import axios from 'axios'
-import URL from '../Api-constants'
-
-const baseURL = "http://127.0.0.1:8000/"
+import {URL, baseURL} from "../Api-constants";
 
 export const HeadlineCards = () => {
     const [categories, setCategories] = useState(null)

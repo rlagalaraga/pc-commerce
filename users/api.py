@@ -83,7 +83,7 @@ class LoggedUserViewSet(viewsets.ViewSet):
             user = serializer.save()
             return Response(status=status.HTTP_200_OK)
 
-    def update_profile(self, request, pk=None , *args, **kwargs):
+    def update_profile(self, request, *args, **kwargs):
         user = self.request.user
         serializer = UpdateProfileSerializer(data = self.request.data, request = self.request, instance = user, partial=True)
         if self.request.user.id == self.kwargs.get('user_id'):

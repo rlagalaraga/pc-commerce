@@ -10,6 +10,12 @@ const URL = {
     get_category: baseURL + 'market/api/get/category/',
     get_products: baseURL + 'market/api/get/products/',
     get_product: baseURL + 'market/api/get/product/',
+    get_reviews: baseURL + 'market/api/get/reviews/',
+    get_cart_items: baseURL + 'cart/api/items/',
+    add_to_cart: baseURL + 'cart/api/add/item/',
+    cart_item: baseURL + 'cart/api/item/',
+    checkout: baseURL + 'transaction/api/checkout/',
+    list_transactions: baseURL + 'transaction/api/get/',
 };
 
-export default URL;
+export { baseURL, URL };

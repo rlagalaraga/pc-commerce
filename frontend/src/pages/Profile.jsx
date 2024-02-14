@@ -5,10 +5,8 @@ import { AiFillEdit } from 'react-icons/ai'
 import Modal from '../components/Modal'
 import EditProfile from '../forms/EditProfile'
 import axios from 'axios'
-import URL from '../Api-constants'
+import {URL, baseURL} from "../Api-constants";
 import Loading from '../components/Loading'
-
-const baseURL = "http://127.0.0.1:8000/"
 
 const Profile = () => {
     const [open, setOpen] = useState(false)
