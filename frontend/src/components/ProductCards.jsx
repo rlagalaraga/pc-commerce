@@ -76,9 +76,9 @@ export const ProductCards = () => {
                         <div className='block'>
                             <button className='text-white hover:text-[#37ebf3] border-[2px] border-[#710000] bg-transparent p-1 w-[70px] sm:w-[200px] flex justify-between' onClick={() => setDropdown((prev) => !prev)}>Category {!dropdown ? (<AiOutlineCaretDown size={20}/>) : (<AiOutlineCaretUp size={20}/>)}</button>
                             {dropdown && (
-                                <div className='w-[70px] sm:w-[200px] bg-black/25 absolute text-center'>
+                                <div className='w-[70px] sm:w-[200px] bg-black absolute text-center'>
                                     <ul className='text-white'>
-                                        <a className='hover:text-[#37ebf3]' href="/products/"><li className='border-[1px] border-[#710000] hover:bg-black'>All</li></a>
+                                        <a className='hover:text-[#37ebf3]' href="/products/"><li className='border-[1px] border-[#710000]'>All</li></a>
                                         {categories && (
                                             <>
                                                 {categories.map((category) => (

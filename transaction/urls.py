@@ -7,5 +7,5 @@ app_name = "transaction"
 urlpatterns = [
     # API urls
     path('api/checkout/<int:id>/', api.TransactionViewSet.as_view({'post':'checkout'})),
-    path('api/get/transactions/', api.TransactionViewSet.as_view({'get':'get_transactions'})),
+    path('api/get/', api.TransactionViewSet.as_view({'get':'get_transactions'})),
 ]

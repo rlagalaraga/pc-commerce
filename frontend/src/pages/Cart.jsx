@@ -16,6 +16,13 @@ const Cart = () => {
     getItems()
   },[])
 
+  useEffect(() => {
+    if(cart){
+      const totalPrice = cart.reduce((acc, item) => acc + item.price, 0);
+      setTotal(totalPrice);
+    }
+  },[cart])
+
   function getItems(){
     axios.get(URL.get_cart_items).then(function(res){
       setCart(res.data)
@@ -25,13 +32,6 @@ const Cart = () => {
       console.log(error)
     })
   }
-
-  useEffect(() => {
-    if(cart){
-      const totalPrice = cart.reduce((acc, item) => acc + item.price, 0);
-      setTotal(totalPrice);
-    }
-  },[cart])
 
   function removeItem(id){
     if(id){
@@ -44,7 +44,6 @@ const Cart = () => {
         withCredentials: true,
       }
       ).then(function(res){
-        alert("Removed!")
         getItems()
       })
     }
@@ -69,6 +68,25 @@ const Cart = () => {
     }
     else{
       alert("Quantity cannot be below 1!")
+    }
+  }
+
+  function checkout(){
+    if(cart){
+      for (const itm of cart){
+        setOpen(false)
+        axios.post(URL.checkout + itm.id + '/',null,
+        {
+            headers:{
+              'Content-Type': 'multipart/form-data',
+              'X-CSRFToken': csrfToken,
+            },
+            withCredentials: true,
+        }
+        ).then(function(res){
+          removeItem(itm.id)
+        })
+      }
     }
   }
 
@@ -116,7 +134,7 @@ const Cart = () => {
               <br />
               <div className='flex justify-between'>
                   <button className='font-bebas text-lg text-white bg-[#710000] py-1 px-4 w-[100px] hover:scale-105' onClick={() => setOpen(false)}>Cancel</button>
-                  <button className='font-bebas text-lg text-black bg-[#FDF500] py-1 px-4 w-[100px] hover:scale-105' onClick={() => setOpen(false)}>Confirm</button>
+                  <button className='font-bebas text-lg text-black bg-[#FDF500] py-1 px-4 w-[100px] hover:scale-105' onClick={() => checkout()}>Confirm</button>
               </div>
           </div>
       </Modal> 

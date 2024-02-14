@@ -14,6 +14,8 @@ const URL = {
     get_cart_items: baseURL + 'cart/api/items/',
     add_to_cart: baseURL + 'cart/api/add/item/',
     cart_item: baseURL + 'cart/api/item/',
+    checkout: baseURL + 'transaction/api/checkout/',
+    list_transactions: baseURL + 'transaction/api/get/',
 };
 
 export { baseURL, URL };
