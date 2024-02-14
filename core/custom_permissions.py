@@ -7,3 +7,12 @@ class IsAuthenticatedAndOwner(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         # Check if the user is authenticated and is the owner of the object.
         return request.user.is_authenticated and obj.owner == request.user
+    
+
+class IsAuthenticatedAndBuyer(permissions.BasePermission):
+    """
+    Custom permission class to allow only the buyer of an item to access it.
+    """
+    def has_object_permission(self, request, view, obj):
+        # Check if the user is authenticated and is the owner of the object.
+        return request.user.is_authenticated and obj.buyer == request.user

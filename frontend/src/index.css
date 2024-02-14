@@ -1,13 +1,43 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'Cyberpunk';
+    src: url('../public/fonts/Cyberpunk.ttf');
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+    font-family: 'BebasNeue';
+    src: url('../public/fonts/BebasNeue.ttf');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../public/fonts/Montserrat.ttf');
+}
+
+@font-face {
+    font-family: 'Cyber';
+    src: url('../public/fonts/Cyber.ttf');
+}
+
+body{
+    --tw-bg-opacity: 1;
+    background-color: rgb(24 24 27 / var(--tw-bg-opacity));
+    /* background-color: #272932; */
+}
+
+.buttonHero:hover{
+    background-color: #37ebf3;
+    border: solid 2px #710000;
+}
+
+.cardHeadline:hover{
+    border: solid 2px #37ebf3;
+    cursor: pointer;
+}
+
+.cardHeadline{
+    border: solid 2px #272932;
 }
